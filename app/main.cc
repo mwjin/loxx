@@ -1,11 +1,20 @@
+#include <fstream>
 #include <iostream>
 #include <string>
 
 namespace loxx {
+void Run(std::string& source) { std::cout << "Run " << source << std::endl; }
+
 void RunFile(std::string file_path) {
-  std::cout << "Run " << file_path << std::endl;
+  std::ifstream in_file{file_path};
+  std::string source{};
+  in_file >> source;
+  Run(source);
 }
-void RunPrompt() { std::cout << "Run Prompt!" << std::endl; }
+void RunPrompt() {
+  std::string line{};
+  while (std::getline(std::cin, line)) Run(line);
+}
 }  // namespace loxx
 
 int main(int argc, char** argv) {
