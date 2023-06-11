@@ -1,9 +1,20 @@
 #include <iostream>
+#include <string>
 
-#include "shape.h"
+namespace loxx {
+void RunFile(std::string file_path) {
+  std::cout << "Run " << file_path << std::endl;
+}
+void RunPrompt() { std::cout << "Run Prompt!" << std::endl; }
+}  // namespace loxx
 
-int main(int, char**) {
-  Rectangle rect{4, 8};
-  std::cout << "Hello, world!" << std::endl;
-  std::cout << "Rectangle size: " << rect.GetSize() << std::endl;
+int main(int argc, char** argv) {
+  if (argc > 2) {
+    std::cout << "Usage: loxx [script]" << std::endl;
+    exit(64);
+  } else if (argc == 2) {
+    loxx::RunFile(argv[1]);
+  } else {
+    loxx::RunPrompt();
+  }
 }
