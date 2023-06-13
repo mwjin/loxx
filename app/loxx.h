@@ -3,9 +3,8 @@
 #include <string>
 
 namespace loxx {
-void RunFile(std::string file_path);
+void RunFile(const std::string& file_path);
 void RunPrompt();
-void Run(std::string& source);
 }  // namespace loxx
 
 #endif
