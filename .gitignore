@@ -47,5 +47,3 @@ _deps
 # Build Outputs
 build/
 
-# VSCode Configurations
-.vscode/
