@@ -6,7 +6,6 @@
       "label": "CMake: configure",
       "command": "configure",
       "targets": ["all"],
-      "preset": "${command:cmake.activeConfigurePresetName}",
       "detail": "CMake template configure task"
     },
     {
@@ -17,7 +16,6 @@
       "group": "build",
       "problemMatcher": [],
       "detail": "CMake template build task",
-      "preset": "${command:cmake.activeConfigurePresetName}",
       "dependsOn": ["CMake: configure"]
     }
   ]
