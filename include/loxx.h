@@ -7,4 +7,4 @@ void RunFile(const std::string& file_path);
 void RunPrompt();
 }  // namespace loxx
 
-#endif
+#endif  // LOXX_H_

@@ -1,7 +1,3 @@
-file(GLOB_RECURSE SRC_FILES CONFIGURE_DEPENDS
-    ${CMAKE_CURRENT_SOURCE_DIR}/*.cc
-)
-
-add_executable(loxx ${SRC_FILES})
-target_link_libraries(loxx shape)
-target_compile_options(loxx PUBLIC -Wall -Werror)
+add_executable(loxxc main.cc)
+target_link_libraries(loxxc PRIVATE loxx)
+target_compile_options(loxxc PUBLIC -Wall -Werror)
