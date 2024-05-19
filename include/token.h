@@ -7,6 +7,7 @@
 
 namespace loxx {
 class Token {
+ public:
   Token(const TokenType type, const std::string& lexeme, const int line);
   std::string ToString() const;
 
