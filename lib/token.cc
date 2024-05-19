@@ -10,4 +10,8 @@ std::string Token::ToString() const {
   oss << type_ << " " << lexeme_ << " " << line_;
   return oss.str();
 }
+bool operator==(const Token& lhs, const Token& rhs) {
+  return lhs.type() == rhs.type() && lhs.lexeme() == rhs.lexeme() &&
+         lhs.line() == rhs.line();
+}
 }  // namespace loxx

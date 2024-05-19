@@ -12,5 +12,15 @@ TEST(TokenTest, TokenToString) {
   Token plus{TokenType::kPlus, "+", 10};
   EXPECT_EQ(plus.ToString(), "Plus + 10");
 }
+
+TEST(TokenTest, TokenEqual) {
+  Token plus1{TokenType::kPlus, "+", 1};
+  Token plus2{TokenType::kPlus, "+", 2};
+  Token minus{TokenType::kMinus, "-", 1};
+
+  EXPECT_EQ(plus1, plus1);
+  EXPECT_NE(plus1, plus2);
+  EXPECT_NE(plus2, minus);
+}
 }  // namespace
 }  // namespace loxx
