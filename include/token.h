@@ -1,6 +1,7 @@
 #ifndef TOKEN_H_
 #define TOKEN_H_
 
+#include <ostream>
 #include <string>
 
 #include "tokentype.h"
@@ -23,6 +24,7 @@ class Token {
 };
 
 bool operator==(const Token& lhs, const Token& rhs);
+std::ostream& operator<<(std::ostream& os, const Token& rhs);
 
 }  // namespace loxx
 
