@@ -8,6 +8,3 @@
 add_library(loxx STATIC loxx.cc token.cc tokentype.cc error.cc)
 target_include_directories(loxx PUBLIC ${CMAKE_SOURCE_DIR}/include)
 target_compile_options(loxx PRIVATE -Wall -Werror)
-
-# Shape
-add_library(shape STATIC shape.cc)
