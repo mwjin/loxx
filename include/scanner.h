@@ -13,6 +13,10 @@ class Scanner {
   const std::vector<Token>& ScanTokens();
 
  private:
+  void ScanToken();
+  void AddToken(TokenType token_type);
+  void AddEof();
+  char Advance();
   bool IsAtEnd();
 
   const std::string& source_;

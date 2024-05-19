@@ -9,3 +9,5 @@ FetchContent_MakeAvailable(googletest)
 
 add_executable(token_test token_test.cc)
 target_link_libraries(token_test PRIVATE loxx gtest gmock gtest_main)
+add_executable(scanner_test scanner_test.cc)
+target_link_libraries(scanner_test PRIVATE loxx gtest gmock gtest_main)
