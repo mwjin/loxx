@@ -18,6 +18,7 @@ class Scanner {
   void AddEof();
   char Advance();
   bool IsAtEnd();
+  bool Match(char c);
 
   const std::string& source_;
   std::vector<Token> tokens_;

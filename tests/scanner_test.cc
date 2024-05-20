@@ -21,5 +21,17 @@ TEST(ScannerTest, TokenizeSingleChars) {
   };
   EXPECT_EQ(result, expected);
 }
+
+TEST(ScannerTest, TokenizeStartsWithBang) {
+  std::string source{"!!!=!+"};
+  Scanner scanner{source};
+  auto& result = scanner.ScanTokens();
+  std::vector<Token> expected{
+      {TokenType::kBang, "!", 1},       {TokenType::kBang, "!", 1},
+      {TokenType::kBangEqual, "!=", 1}, {TokenType::kBang, "!", 1},
+      {TokenType::kPlus, "+", 1},       {TokenType::kEof, "", 1},
+  };
+  EXPECT_EQ(result, expected);
+}
 }  // namespace
 }  // namespace loxx

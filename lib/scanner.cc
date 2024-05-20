@@ -49,6 +49,18 @@ void Scanner::ScanToken() {
     case '*':
       AddToken(TokenType::kStar);
       break;
+    case '!':
+      AddToken(Match('=') ? TokenType::kBangEqual : TokenType::kBang);
+      break;
+    case '=':
+      AddToken(Match('=') ? TokenType::kEqualEqual : TokenType::kEqual);
+      break;
+    case '<':
+      AddToken(Match('=') ? TokenType::kLessEqual : TokenType::kLess);
+      break;
+    case '>':
+      AddToken(Match('=') ? TokenType::kGreaterEqual : TokenType::kGreater);
+      break;
     default:
       loxx::Error(line_, "Unexpected character.");
       break;
@@ -65,4 +77,11 @@ void Scanner::AddEof() { tokens_.emplace_back(TokenType::kEof, "", line_); }
 char Scanner::Advance() { return source_.at(current_++); }
 
 bool Scanner::IsAtEnd() { return current_ >= source_.size(); }
+
+bool Scanner::Match(char c) {
+  if (IsAtEnd()) return false;
+  if (c != source_.at(current_)) return false;
+  current_++;
+  return true;
+}
 }  // namespace loxx
