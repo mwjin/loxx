@@ -6,6 +6,17 @@ namespace loxx {
 Scanner::Scanner(const std::string& source)
     : source_{source}, start_{}, current_{}, line_{1} {}
 
+const auto Scanner::keywords_ = std::unordered_map<std::string, TokenType>{
+    {"and", TokenType::kAnd},       {"class", TokenType::kClass},
+    {"else", TokenType::kElse},     {"false", TokenType::kFalse},
+    {"for", TokenType::kFor},       {"fun", TokenType::kFun},
+    {"if", TokenType::kIf},         {"nil", TokenType::kNil},
+    {"or", TokenType::kOr},         {"print", TokenType::kPrint},
+    {"return", TokenType::kReturn}, {"super", TokenType::kSuper},
+    {"this", TokenType::kThis},     {"true", TokenType::kTrue},
+    {"var", TokenType::kVar},       {"while", TokenType::kWhile},
+};
+
 const std::vector<Token>& Scanner::ScanTokens() {
   while (!IsAtEnd()) {
     start_ = current_;  // Move to the next lexeme
@@ -83,6 +94,9 @@ void Scanner::ScanToken() {
     default:
       if (IsDigit(c))
         ScanNumber();
+
+      else if (IsAlpha(c))
+        ScanIdentifier();
       else
         loxx::Error(line_, "Unexpected character.");
       break;
@@ -116,6 +130,15 @@ void Scanner::ScanNumber() {
   AddToken(TokenType::kNumber);
 }
 
+void Scanner::ScanIdentifier() {
+  while (IsAlphaNumeric(Peek())) Advance();
+  auto word = source_.substr(start_, current_ - start_);
+  if (keywords_.find(word) != keywords_.end())
+    AddToken(keywords_.at(word));
+  else
+    AddToken(TokenType::kIdentifier);
+}
+
 void Scanner::AddToken(TokenType token_type) {
   tokens_.emplace_back(token_type, source_.substr(start_, current_ - start_),
                        line_);
@@ -141,4 +164,8 @@ char Scanner::PeekNext() {
 }
 
 bool Scanner::IsDigit(char c) { return c >= '0' && c <= '9'; }
+bool Scanner::IsAlpha(char c) {
+  return (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || c == '_';
+}
+bool Scanner::IsAlphaNumeric(char c) { return IsDigit(c) || IsAlpha(c); }
 }  // namespace loxx

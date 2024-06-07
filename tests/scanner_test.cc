@@ -106,5 +106,24 @@ TEST(ScannerTest, TokenizeNumberLiterals) {
       {TokenType::kNumber, "910", 1},   {TokenType::kEof, "", 1}};
   EXPECT_EQ(result, expected);
 }
+
+TEST(ScannerTest, TokenizeIdentifiersAndKeywords) {
+  std::string source{R"(// This is a comment.
+var a = 1;
+if (a == 1) a = 2;
+)"};
+  Scanner scanner{source};
+  auto& result = scanner.ScanTokens();
+  std::vector<Token> expected{
+      {TokenType::kVar, "var", 2},       {TokenType::kIdentifier, "a", 2},
+      {TokenType::kEqual, "=", 2},       {TokenType::kNumber, "1", 2},
+      {TokenType::kSemicolon, ";", 2},   {TokenType::kIf, "if", 3},
+      {TokenType::kLeftParen, "(", 3},   {TokenType::kIdentifier, "a", 3},
+      {TokenType::kEqualEqual, "==", 3}, {TokenType::kNumber, "1", 3},
+      {TokenType::kRightParen, ")", 3},  {TokenType::kIdentifier, "a", 3},
+      {TokenType::kEqual, "=", 3},       {TokenType::kNumber, "2", 3},
+      {TokenType::kSemicolon, ";", 3},   {TokenType::kEof, "", 4}};
+  EXPECT_EQ(result, expected);
+}
 }  // namespace
 }  // namespace loxx

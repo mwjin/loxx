@@ -2,6 +2,7 @@
 #define SCANNER_H_
 
 #include <string>
+#include <unordered_map>
 #include <vector>
 
 #include "token.h"
@@ -16,6 +17,7 @@ class Scanner {
   void ScanToken();
   void ScanString();
   void ScanNumber();
+  void ScanIdentifier();
   void AddToken(TokenType token_type);
   void AddEof();
 
@@ -40,12 +42,15 @@ class Scanner {
   char PeekNext();
 
   bool IsDigit(char c);
+  bool IsAlpha(char c);
+  bool IsAlphaNumeric(char c);
 
   const std::string& source_;
   std::vector<Token> tokens_;
   int start_;    // The first char of the lexeme being scanned
   int current_;  // The char of the lexeme currently being considered
   int line_;     // What source line `current_` is on
+  static const std::unordered_map<std::string, TokenType> keywords_;
 };
 }  // namespace loxx
 
