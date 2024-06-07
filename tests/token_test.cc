@@ -7,10 +7,11 @@ namespace loxx {
 namespace {
 TEST(TokenTest, TokenToString) {
   Token identifier{TokenType::kIdentifier, "x1", 10};
-  EXPECT_EQ(identifier.ToString(), "Identifier x1 10");
+  EXPECT_EQ(identifier.ToString(),
+            "[ Type: Identifier, Lexeme: \"x1\", Line: 10 ]");
 
   Token plus{TokenType::kPlus, "+", 10};
-  EXPECT_EQ(plus.ToString(), "Plus + 10");
+  EXPECT_EQ(plus.ToString(), "[ Type: Plus, Lexeme: \"+\", Line: 10 ]");
 }
 
 TEST(TokenTest, TokenEqual) {

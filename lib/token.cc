@@ -7,7 +7,8 @@ Token::Token(const TokenType type, const std::string& lexeme, const int line)
     : type_{type}, lexeme_{lexeme}, line_{line} {}
 std::string Token::ToString() const {
   std::ostringstream oss;
-  oss << type_ << " " << lexeme_ << " " << line_;
+  oss << "[ Type: " << type_ << ", Lexeme: \"" << lexeme_
+      << "\", Line: " << line_ << " ]";
   return oss.str();
 }
 bool operator==(const Token& lhs, const Token& rhs) {
