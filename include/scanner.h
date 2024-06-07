@@ -16,10 +16,24 @@ class Scanner {
   void ScanToken();
   void AddToken(TokenType token_type);
   void AddEof();
+
+  /**
+   * @brief Return the current character and go ahead
+   */
   char Advance();
+
   bool IsAtEnd();
+
+  /**
+   * @brief Return whether the current character is matching with the input
+   * character and go ahead if the result is true.
+   */
   bool Match(char c);
-  char Peek();  // To look ahead the current unconsumed character
+
+  /**
+   * @brief Look ahead and return the current unconsumed character
+   */
+  char Peek();
 
   const std::string& source_;
   std::vector<Token> tokens_;
