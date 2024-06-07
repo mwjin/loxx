@@ -77,10 +77,31 @@ void Scanner::ScanToken() {
     case '\n':
       ++line_;
       break;
+    case '"':
+      ScanString();
+      break;
     default:
       loxx::Error(line_, "Unexpected character.");
       break;
   }
+}
+
+void Scanner::ScanString() {
+  while (!IsAtEnd() && Peek() != '"') {
+    if (Peek() == '\n') ++line_;
+    Advance();
+  }
+
+  if (IsAtEnd()) {
+    loxx::Error(line_, "Unterminated string.");
+    return;
+  }
+
+  // The closing "
+  Advance();
+
+  // Get the unquoted string literal
+  AddToken(TokenType::kString);
 }
 
 void Scanner::AddToken(TokenType token_type) {

@@ -80,5 +80,20 @@ TEST(ScannerTest, TokenizeWithNewlineAndWhitespaces) {
       {TokenType::kRightParen, ")", 3}, {TokenType::kEof, "", 3}};
   EXPECT_EQ(result, expected);
 }
+
+TEST(ScannerTest, TokenizeStringLiterals) {
+  std::string source{
+      R"("Here is my string."
+    // Here is my comment
+    "This is a multiple
+line!")"};
+  Scanner scanner{source};
+  auto& result = scanner.ScanTokens();
+  std::vector<Token> expected{
+      {TokenType::kString, "\"Here is my string.\"", 1},
+      {TokenType::kString, "\"This is a multiple\nline!\"", 4},
+      {TokenType::kEof, "", 4}};
+  EXPECT_EQ(result, expected);
+}
 }  // namespace
 }  // namespace loxx

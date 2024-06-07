@@ -14,6 +14,7 @@ class Scanner {
 
  private:
   void ScanToken();
+  void ScanString();
   void AddToken(TokenType token_type);
   void AddEof();
 
