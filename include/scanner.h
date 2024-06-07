@@ -15,6 +15,7 @@ class Scanner {
  private:
   void ScanToken();
   void ScanString();
+  void ScanNumber();
   void AddToken(TokenType token_type);
   void AddEof();
 
@@ -35,6 +36,10 @@ class Scanner {
    * @brief Look ahead and return the current unconsumed character
    */
   char Peek();
+
+  char PeekNext();
+
+  bool IsDigit(char c);
 
   const std::string& source_;
   std::vector<Token> tokens_;

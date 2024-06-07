@@ -95,5 +95,16 @@ line!")"};
       {TokenType::kEof, "", 4}};
   EXPECT_EQ(result, expected);
 }
+
+TEST(ScannerTest, TokenizeNumberLiterals) {
+  std::string source{"12.34.56.78.910"};
+  Scanner scanner{source};
+  auto& result = scanner.ScanTokens();
+  std::vector<Token> expected{
+      {TokenType::kNumber, "12.34", 1}, {TokenType::kDot, ".", 1},
+      {TokenType::kNumber, "56.78", 1}, {TokenType::kDot, ".", 1},
+      {TokenType::kNumber, "910", 1},   {TokenType::kEof, "", 1}};
+  EXPECT_EQ(result, expected);
+}
 }  // namespace
 }  // namespace loxx

@@ -81,7 +81,10 @@ void Scanner::ScanToken() {
       ScanString();
       break;
     default:
-      loxx::Error(line_, "Unexpected character.");
+      if (IsDigit(c))
+        ScanNumber();
+      else
+        loxx::Error(line_, "Unexpected character.");
       break;
   }
 }
@@ -104,6 +107,15 @@ void Scanner::ScanString() {
   AddToken(TokenType::kString);
 }
 
+void Scanner::ScanNumber() {
+  while (IsDigit(Peek())) Advance();
+  if (Peek() == '.' && IsDigit(PeekNext())) {
+    Advance();  // Consume the dot
+    while (IsDigit(Peek())) Advance();
+  }
+  AddToken(TokenType::kNumber);
+}
+
 void Scanner::AddToken(TokenType token_type) {
   tokens_.emplace_back(token_type, source_.substr(start_, current_ - start_),
                        line_);
@@ -123,4 +135,10 @@ bool Scanner::Match(char c) {
 }
 
 char Scanner::Peek() { return IsAtEnd() ? '\0' : source_.at(current_); }
+
+char Scanner::PeekNext() {
+  return current_ + 1 >= source_.size() ? '\0' : source_.at(current_ + 1);
+}
+
+bool Scanner::IsDigit(char c) { return c >= '0' && c <= '9'; }
 }  // namespace loxx
