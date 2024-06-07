@@ -61,6 +61,14 @@ void Scanner::ScanToken() {
     case '>':
       AddToken(Match('=') ? TokenType::kGreaterEqual : TokenType::kGreater);
       break;
+    case '/':
+      if (Match('/')) {
+        // A comment goes until the end of the line.
+        while (Peek() != '\n' && !IsAtEnd()) Advance();
+      } else {
+        AddToken(TokenType::kSlash);
+      }
+      break;
     default:
       loxx::Error(line_, "Unexpected character.");
       break;
@@ -84,4 +92,6 @@ bool Scanner::Match(char c) {
   current_++;
   return true;
 }
+
+char Scanner::Peek() { return IsAtEnd() ? '\0' : source_.at(current_); }
 }  // namespace loxx

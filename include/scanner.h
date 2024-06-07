@@ -19,6 +19,7 @@ class Scanner {
   char Advance();
   bool IsAtEnd();
   bool Match(char c);
+  char Peek();  // To look ahead the current unconsumed character
 
   const std::string& source_;
   std::vector<Token> tokens_;
