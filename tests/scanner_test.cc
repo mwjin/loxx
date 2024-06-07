@@ -52,5 +52,33 @@ TEST(ScannerTest, TokenizeSlash) {
       {TokenType::kPlus, "+", 1},  {TokenType::kEof, "", 1}};
   EXPECT_EQ(result, expected);
 }
+
+TEST(ScannerTest, TokenizeWithNewline) {
+  std::string source{
+      R"(// Here is my comment
+        !! != !+)"};
+  Scanner scanner{source};
+  auto& result = scanner.ScanTokens();
+  std::vector<Token> expected{
+      {TokenType::kBang, "!", 2},       {TokenType::kBang, "!", 2},
+      {TokenType::kBangEqual, "!=", 2}, {TokenType::kBang, "!", 2},
+      {TokenType::kPlus, "+", 2},       {TokenType::kEof, "", 2},
+  };
+  EXPECT_EQ(result, expected);
+}
+
+TEST(ScannerTest, TokenizeWithNewlineAndWhitespaces) {
+  std::string source{
+      R"(// Here is a comment
+    < > = // inline comment
+    ( ))"};
+  Scanner scanner{source};
+  auto& result = scanner.ScanTokens();
+  std::vector<Token> expected{
+      {TokenType::kLess, "<", 2},       {TokenType::kGreater, ">", 2},
+      {TokenType::kEqual, "=", 2},      {TokenType::kLeftParen, "(", 3},
+      {TokenType::kRightParen, ")", 3}, {TokenType::kEof, "", 3}};
+  EXPECT_EQ(result, expected);
+}
 }  // namespace
 }  // namespace loxx

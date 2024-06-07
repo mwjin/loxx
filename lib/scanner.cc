@@ -69,6 +69,14 @@ void Scanner::ScanToken() {
         AddToken(TokenType::kSlash);
       }
       break;
+    case ' ':
+    case '\r':
+    case '\t':
+      // Ignore whitespace
+      break;
+    case '\n':
+      ++line_;
+      break;
     default:
       loxx::Error(line_, "Unexpected character.");
       break;
