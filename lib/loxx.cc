@@ -4,9 +4,17 @@
 #include <iostream>
 #include <iterator>
 
+#include "scanner.h"
+
 namespace loxx {
 void Run(const std::string& source) {
-  std::cout << "Get \"" << source << "\"" << std::endl;
+  std::cout << "Compile \"" << source << "\"" << std::endl;
+  std::cout << std::endl
+            << "========== Scanning ==========" << std::endl
+            << std::endl;
+  Scanner scanner{source};
+  auto& tokens = scanner.ScanTokens();
+  for (const auto& token : tokens) std::cout << token << std::endl;
 }
 }  // namespace loxx
 
