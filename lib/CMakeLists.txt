@@ -5,6 +5,6 @@
 # list(REMOVE_ITEM SRC_FILES shape.cc)
 
 # LOXX
-add_library(loxx STATIC loxx.cc token.cc tokentype.cc error.cc scanner.cc)
+add_library(loxx STATIC loxx.cc token.cc tokentype.cc scanner.cc)
 target_include_directories(loxx PUBLIC ${CMAKE_SOURCE_DIR}/include)
 target_compile_options(loxx PRIVATE -Wall -Werror)

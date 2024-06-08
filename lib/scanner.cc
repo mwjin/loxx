@@ -1,6 +1,6 @@
 #include "scanner.h"
 
-#include "error.h"
+#include "loxx.h"
 
 namespace loxx {
 Scanner::Scanner(const std::string& source)
@@ -98,7 +98,7 @@ void Scanner::ScanToken() {
       else if (IsAlpha(c))
         ScanIdentifier();
       else
-        loxx::Error(line_, "Unexpected character.");
+        Loxx::Error(line_, "Unexpected character.");
       break;
   }
 }
@@ -110,7 +110,7 @@ void Scanner::ScanString() {
   }
 
   if (IsAtEnd()) {
-    loxx::Error(line_, "Unterminated string.");
+    Loxx::Error(line_, "Unterminated string.");
     return;
   }
 
