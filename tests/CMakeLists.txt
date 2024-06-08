@@ -7,11 +7,16 @@ FetchContent_Declare(
 
 FetchContent_MakeAvailable(googletest)
 
+# Create an interface library to hold the gtest dependencies
+add_library(gtest_bundle INTERFACE)
+target_link_libraries(gtest_bundle INTERFACE gtest gmock gtest_main)
+
+# Create the test executables and link against the interface library
 add_executable(token_test token_test.cc)
-target_link_libraries(token_test PRIVATE loxx gtest gmock gtest_main)
+target_link_libraries(token_test PRIVATE loxx gtest_bundle)
 
 add_executable(scanner_test scanner_test.cc)
-target_link_libraries(scanner_test PRIVATE loxx gtest gmock gtest_main)
+target_link_libraries(scanner_test PRIVATE loxx gtest_bundle)
 
 include(GoogleTest)
 gtest_discover_tests(token_test)
